@@ -19,39 +19,35 @@ export default function NavBar() {
         setImg(newImg);
         changeTheme(newTheme);
     };
-    const changeTheme = (newTheme: Theme) => {
+    const changeTheme = (newTheme: Theme) : void => {
         const Body = document.querySelector('body');
         const nav = document.querySelector('header');
         const button = document.querySelector('button');
-        if (newTheme === 'light') {
-            Body?.classList.remove('bg-gray-900');
-            Body?.classList.add('bg-gray-100');
-            Body?.classList.add('text-gray-900');
-            Body?.classList.remove('text-white');
-            Body?.classList.remove('dark');
-            nav?.classList.remove('bg-gray-800');
-            nav?.classList.add('bg-gray-200');
-            nav?.classList.add('text-gray-900');
-            nav?.classList.remove('text-white');
-            button?.classList.remove('bg-gray-500');
-            button?.classList.add('bg-gray-300');
-        } else {
-            Body?.classList.remove('bg-gray-100');
-            Body?.classList.add('bg-gray-900');
-            Body?.classList.remove('text-gray-900');
-            Body?.classList.add('text-white');
-            Body?.classList.add('dark');
-            nav?.classList.remove('bg-gray-200');
-            nav?.classList.add('bg-gray-800');
-            nav?.classList.remove('text-gray-900');
-            nav?.classList.add('text-white');
-            button?.classList.remove('bg-gray-300');
-            button?.classList.add('bg-gray-500');
+        const label = document.querySelectorAll('label');
+        
+        if (Body) {
+            Body.style.backgroundColor = newTheme === 'light' ? '#f3f4f6' : '#111827';
+            Body.style.color = newTheme === 'light' ? '#111827' : '#ffffff';
+            Body.classList.toggle('dark', newTheme === 'dark');
+        }
+        
+        if (nav) {
+            nav.style.backgroundColor = newTheme === 'light' ? '#e5e7eb' : '#1f2937';
+            nav.style.color = newTheme === 'light' ? '#111827' : '#ffffff';
+        }
+        
+        if (button) {
+            button.style.backgroundColor = newTheme === 'light' ? '#d1d5db' : '#6b7280';
+        }
+
+        if(label){
+            label.forEach((el) => {
+                (el as HTMLElement).style.color = newTheme === 'light' ? '#111827' : '#ffffff';
+            });
         }
     }
     const pathname = usePathname();
 
-    // ensure initial theme class is applied when component mounts
     useEffect(() => {
         changeTheme(theme);
     }, []);
@@ -60,11 +56,11 @@ export default function NavBar() {
         <header className = "flex flex-col items-top p-4 bg-gray-800 text-white ml-4 mr-4 mt-4 rounded-xl border-2 border-gray-700">
             <div className = "flex items-center justify-between">
                 <div className = "flex items-center gap-8">
-                    <Link href="/About" className={`hover:text-gray-300 ${pathname === '/About' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded' : ''}`}>About Me</Link>
-                    <a href="#experiences" className={`hover:text-gray-300 ${pathname === '/Experiences' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded' : ''}`}>Experiences</a>
-                    <Link href="/contact" className={`hover:text-gray-300 ${pathname === '/contact' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded' : ''}`}>Contact Me</Link>
+                    <Link href="/" className={`hover:text-gray-200 ${pathname === '/' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded text-gray-900 dark:text-white' : ''}`}>About Me</Link>
+                    <Link href="/experiences" className={`hover:text-gray-200 ${pathname === '/experiences' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded text-gray-900 dark:text-white' : ''}`}>Experiences</Link>
+                    <Link href="/contact" className={`hover:text-gray-200 ${pathname === '/contact' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded text-gray-900 dark:text-white' : ''}`}>Contact Me</Link>
                 </div>
-                    <button onClick={toggleTheme} className = "w-10 h-10 bg-gray-500 rounded-full" aria-label="Toggle Theme">
+                    <button onClick={toggleTheme} className = "w-10 h-10 bg-gray-500 rounded-full">
                         <Image src={img} alt="Dark mode" className="object-cover" />
                     </button>
                 </div>

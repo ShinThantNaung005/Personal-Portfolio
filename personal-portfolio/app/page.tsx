@@ -1,18 +1,18 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import profile from '../../public/profile.jpg';
-import python from '../../public/Python-logo-notext.svg';
-import react from '../../public/React-icon.svg';
-import typescript from '../../public/typescript-logo.svg';
-import javascript from '../../public/javascript-logo.svg';
+import profile from '../public/profile.jpg';
+import python from '../public/Python-logo-notext.svg';
+import react from '../public/React-icon.svg';
+import typescript from '../public/typescript-logo.svg';
+import javascript from '../public/javascript-logo.svg';
 export default function page(){
   return (
     <div className='flex flex-col justify-between'>
 
       <main className="flex items-left p-4 mt-10">
         <div className = "relative w-80 h-80 rounded-full ml-4 flex-shrink-0 mt-8 overflow-hidden" aria-hidden="true">
-          <Image src={profile} alt="Profile" className="object-cover" fill />
+          <Image src={profile} alt="Profile" className="object-cover" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
         </div>
         <div className="ml-4 mt-8 flex flex-col space-y-4">
           <p className="text-3xl">Hi! I am</p>
