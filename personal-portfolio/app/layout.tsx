@@ -3,9 +3,19 @@ import './globals.css';
 import NavBar from './navBar';
 
 export const metadata = {
-  title: 'Personal Portfolio',
-  description: 'A showcase of my projects and skills.',
-}
+  title: "Shin Thant Naung | Web Developer",
+  description: "Portfolio of Shin Thant Naung, React and Next.js developer",
+  keywords: ["Web Developer", "React", "Next.js", "Portfolio"],
+  authors: [{ name: "Shin Thant Naung" }],
+  openGraph: {
+    title: "Shin Thant Naung | Web Developer",
+    description: "Portfolio of Shin Thant Naung, React and Next.js developer",
+    url: "https://ShinThantNaung.vercel.app",
+    siteName: "ShinThantNaung Portfolio",
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export default function RootLayout({
   children,
