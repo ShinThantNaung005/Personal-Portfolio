@@ -22,17 +22,45 @@ import react from '../public/React-icon.svg';
 import typescript from '../public/typescript-logo.svg';
 import javascript from '../public/javascript-logo.svg';
 import nodejs from '../public/NodeJS.svg';
+import java from '../public/java-logo.svg';
+import csharp from '../public/Csharp-logo.svg';
+import c from '../public/C-logo.svg';
+import mysql from '../public/mysql-logo.svg';
+import prisma from '../public/prisma-logo.svg';
+import pytorch from '../public/pytorch-logo.svg';
 
 const techStack = [
-  { label: 'Python', icons: [{ src: python, alt: 'Python logo' }] },
-  { label: 'React', icons: [{ src: react, alt: 'React logo' }] },
-  { label: 'Node.js', icons: [{ src: nodejs, alt: 'Node.js logo' }] },
   {
-    label: 'JavaScript / TypeScript',
-    icons: [
-      { src: javascript, alt: 'JavaScript logo' },
-      { src: typescript, alt: 'TypeScript logo' },
+    category: 'Languages',
+    items: [
+      { label: 'Python', icons: [{ src: python, alt: 'Python logo' }] },
+      {
+        label: 'JavaScript / TypeScript',
+        icons: [
+          { src: javascript, alt: 'JavaScript logo' },
+          { src: typescript, alt: 'TypeScript logo' },
+        ],
+      },
+      { label: 'Java', icons: [{ src: java, alt: 'Java logo' }] },
+      { label: 'C#', icons: [{ src: csharp, alt: 'C# logo' }] },
+      { label: 'C', icons: [{ src: c, alt: 'C logo' }] },
     ],
+  },
+  {
+    category: 'Frontend',
+    items: [{ label: 'React', icons: [{ src: react, alt: 'React logo' }] }],
+  },
+  {
+    category: 'Backend / DB',
+    items: [
+      { label: 'Node.js', icons: [{ src: nodejs, alt: 'Node.js logo' }] },
+      { label: 'MySQL', icons: [{ src: mysql, alt: 'MySQL logo' }] },
+      { label: 'Prisma', icons: [{ src: prisma, alt: 'Prisma logo' }] },
+    ],
+  },
+  {
+    category: 'Machine Learning',
+    items: [{ label: 'PyTorch', icons: [{ src: pytorch, alt: 'PyTorch logo' }] }],
   },
 ];
 
@@ -69,6 +97,7 @@ export default function Page() {
               fill
               style={{ objectFit: 'cover' }}
               sizes="(max-width: 768px) 220px, (max-width: 1200px) 280px, 320px"
+              loading = "eager"
             />
           </Box>
 
@@ -85,20 +114,51 @@ export default function Page() {
             <Typography variant="h6" sx={{ mt: 1 }}>
               Tech Stack
             </Typography>
-            <Stack direction="row" useFlexGap flexWrap="wrap" gap={1.25}>
-              {techStack.map((tech) => (
-                <Paper key={tech.label} sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1.5, py: 1, borderRadius: 3 }}>
-                  {tech.icons.map((icon) => (
-                    <Image key={icon.alt} src={icon.src} alt={icon.alt} width={20} height={20} />
-                  ))}
-                  <Typography variant="body2">{tech.label}</Typography>
+            <Stack spacing={1.25}>
+              {techStack.map((group) => (
+                <Paper key={group.category} sx={{ px: 1.5, py: 1.25, borderRadius: 3 }}>
+                  <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 600 }}>
+                    {group.category}
+                  </Typography>
+                  <Stack direction="row" useFlexGap flexWrap="wrap" gap={1}>
+                    {group.items.map((tech) => (
+                      <Paper
+                        key={tech.label}
+                        variant="outlined"
+                        sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1.25, py: 0.75, borderRadius: 2 }}
+                      >
+                        {tech.icons.map((icon) => (
+                          <Image key={icon.alt} src={icon.src} alt={icon.alt} width={20} height={20} />
+                        ))}
+                        <Typography variant="body2">{tech.label}</Typography>
+                      </Paper>
+                    ))}
+                  </Stack>
                 </Paper>
               ))}
             </Stack>
 
+            <Paper
+              variant="outlined"
+              sx={(theme) => ({
+                px: { xs: 2, md: 2.5 },
+                py: { xs: 1.5, md: 2 },
+                borderRadius: 3,
+                borderColor: theme.palette.divider,
+                backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.7)',
+              })}
+            >
+              <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5 }}>
+                About Me
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                I’m Shin Thant Naung, a Computer Science undergraduate at Myanmar Institute of Information Technology. I’m passionate about full-stack web development and currently building applications using Node.js while learning React for frontend development.
+                I’m also deeply interested in mathematics, machine learning, and deep learning. My goal is to become a full-stack developer and an AI engineer, and to contribute to meaningful, real-world projects in the future.
+              </Typography>
+            </Paper>
             <Box>
               <Button LinkComponent={Link} href="/contact" variant="contained" size="large" sx={{ px: 4 }}>
-                Hire Me
+                Contact Me
               </Button>
             </Box>
 
