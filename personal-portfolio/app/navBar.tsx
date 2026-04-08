@@ -1,69 +1,101 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import './globals.css';
+import React from 'react';
 import Link from 'next/link';
-import { usePathname } from "next/navigation"
-import Image from 'next/image';
-import light from '../public/day-mode.png';
-import dark from '../public/night-mode.png';
+import { usePathname } from 'next/navigation';
+import {
+    DarkModeRounded as DarkModeRoundedIcon,
+    LightModeRounded as LightModeRoundedIcon,
+} from '@mui/icons-material';
+import {
+    AppBar,
+    Box,
+    Button,
+    Container,
+    IconButton,
+    Paper,
+    Stack,
+    Toolbar,
+    Tooltip,
+} from '@mui/material';
+import { useThemeMode } from './themeProvider';
 
 export default function NavBar() {
-    type Theme = 'light' | 'dark';
-    type Img = typeof light | typeof dark;
-    const [theme, setTheme] = useState<Theme>('dark');
-    const [img,setImg] = useState<Img>(dark);
-    const toggleTheme = () => {
-        const newTheme: Theme = theme === 'light' ? 'dark' : 'light';
-        const newImg: Img = newTheme === 'light' ? light : dark;
-        setTheme(newTheme);
-        setImg(newImg);
-        changeTheme(newTheme);
-    };
-    const changeTheme = (newTheme: Theme) : void => {
-        const Body = document.querySelector('body');
-        const nav = document.querySelector('header');
-        const button = document.querySelector('button');
-        const label = document.querySelectorAll('label');
-        
-        if (Body) {
-            Body.style.backgroundColor = newTheme === 'light' ? '#f3f4f6' : '#111827';
-            Body.style.color = newTheme === 'light' ? '#111827' : '#ffffff';
-            Body.classList.toggle('dark', newTheme === 'dark');
-        }
-        
-        if (nav) {
-            nav.style.backgroundColor = newTheme === 'light' ? '#e5e7eb' : '#1f2937';
-            nav.style.color = newTheme === 'light' ? '#111827' : '#ffffff';
-        }
-        
-        if (button) {
-            button.style.backgroundColor = newTheme === 'light' ? '#d1d5db' : '#6b7280';
-        }
-
-        if(label){
-            label.forEach((el) => {
-                (el as HTMLElement).style.color = newTheme === 'light' ? '#111827' : '#ffffff';
-            });
-        }
-    }
     const pathname = usePathname();
+    const { mode, toggleTheme } = useThemeMode();
 
-    useEffect(() => {
-        changeTheme(theme);
-    }, []);
+    const navItems = [
+        { label: 'About Me', href: '/' },
+        { label: 'Experiences', href: '/experience' },
+        { label: 'Contact Me', href: '/contact' },
+    ];
 
-    return(
-        <header className = "flex flex-col items-top p-4 bg-gray-800 text-white ml-4 mr-4 mt-4 rounded-xl border-2 border-gray-700">
-            <div className = "flex items-center justify-between">
-                <div className = "flex items-center gap-8">
-                    <Link href="/" className={`hover:text-gray-200 ${pathname === '/' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded text-gray-900 dark:text-white' : ''}`}>About Me</Link>
-                    <Link href="/experience" className={`hover:text-gray-200 ${pathname === '/experience' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded text-gray-900 dark:text-white' : ''}`}>Experiences</Link>
-                    <Link href="/contact" className={`hover:text-gray-200 ${pathname === '/contact' ? 'bg-gray-700 dark:bg-gray-300 px-2 py-1 rounded text-gray-900 dark:text-white' : ''}`}>Contact Me</Link>
-                </div>
-                    <button onClick={toggleTheme} className = "w-10 h-10 bg-gray-500 rounded-full">
-                        <Image src={img} alt="Dark mode" className="object-cover" />
-                    </button>
-                </div>
-      </header>
-    )
+    return (
+        <AppBar position="sticky" color="transparent" elevation={0} sx={{ px: { xs: 1.5, sm: 2.5 }, pt: 2 }}>
+            <Paper
+                elevation={0}
+                sx={(theme) => ({
+                    borderRadius: 3,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    backdropFilter: 'blur(12px)',
+                    bgcolor:
+                        theme.palette.mode === 'dark' ? 'rgba(15, 23, 42, 0.7)' : 'rgba(255, 255, 255, 0.72)',
+                    boxShadow:
+                        theme.palette.mode === 'dark'
+                            ? '0 18px 40px rgba(2, 8, 23, 0.55)'
+                            : '0 14px 30px rgba(37, 99, 235, 0.12)',
+                })}
+            >
+                <Container maxWidth="lg">
+                    <Toolbar
+                        disableGutters
+                        sx={{
+                            minHeight: 74,
+                            justifyContent: 'space-between',
+                            gap: 2,
+                            flexWrap: { xs: 'wrap', md: 'nowrap' },
+                            py: { xs: 1, md: 0 },
+                        }}
+                    >
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} sx={{ width: { xs: '100%', md: 'auto' } }}>
+                            {navItems.map((item) => {
+                                const isActive = pathname === item.href;
+
+                                return (
+                                    <Button
+                                        key={item.href}
+                                        component={Link}
+                                        href={item.href}
+                                        variant={isActive ? 'contained' : 'text'}
+                                        color={isActive ? 'primary' : 'inherit'}
+                                        sx={{
+                                            justifyContent: 'flex-start',
+                                            px: 2.25,
+                                            borderRadius: 2.25,
+                                            fontWeight: 600,
+                                        }}
+                                    >
+                                        {item.label}
+                                    </Button>
+                                );
+                            })}
+                        </Stack>
+
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: { xs: '100%', sm: 'auto' } }}>
+                            <Tooltip title={`Switch to ${mode === 'dark' ? 'light' : 'dark'} theme`}>
+                                <IconButton
+                                    aria-label="toggle color mode"
+                                    onClick={toggleTheme}
+                                    color="primary"
+                                    sx={{ border: '1px solid', borderColor: 'divider', bgcolor: 'background.default' }}
+                                >
+                                    {mode === 'dark' ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                    </Toolbar>
+                </Container>
+            </Paper>
+        </AppBar>
+    );
 }

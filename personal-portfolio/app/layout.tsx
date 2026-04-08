@@ -1,8 +1,24 @@
-import React from 'react';
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import { Fraunces, Space_Grotesk } from 'next/font/google';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import './globals.css';
 import NavBar from './navBar';
+import PortfolioThemeProvider from './themeProvider';
 
-export const metadata = {
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  weight: ['400', '500', '700'],
+});
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  weight: ['500', '700'],
+});
+
+export const metadata: Metadata = {
   title: "Shin Thant Naung | Web Developer",
   description: "Portfolio of Shin Thant Naung, React and Next.js developer",
   keywords: ["Web Developer", "React", "Next.js", "Portfolio"],
@@ -20,20 +36,18 @@ export const metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-900 text-white transition-colors duration-500">
-        <div className="fixed inset-0 
-            bg-[radial-gradient(circle_at_80%_30%,rgba(59,130,246,0.4),transparent_60%)] 
-            blur-3xl opacity-70 
-            pointer-events-none z-0" />
-          <div className="relative z-10">
+      <body className={`${spaceGrotesk.variable} ${fraunces.variable}`}>
+        <AppRouterCacheProvider>
+          <PortfolioThemeProvider>
             <NavBar />
             {children}
-          </div>
-        </body>
+          </PortfolioThemeProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   )
 }
