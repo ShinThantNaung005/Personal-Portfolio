@@ -21,7 +21,7 @@ import { useThemeMode } from './themeProvider';
 
 export default function NavBar() {
     const pathname = usePathname();
-    const { mode, toggleTheme } = useThemeMode();
+    const { mode, toggleTheme, isTransitioning } = useThemeMode();
 
     const navItems = [
         { label: 'About Me', href: '/' },
@@ -86,6 +86,7 @@ export default function NavBar() {
                                 <IconButton
                                     aria-label="toggle color mode"
                                     onClick={toggleTheme}
+                                    disabled={isTransitioning}
                                     color="primary"
                                     sx={{ border: '1px solid', borderColor: 'divider', bgcolor: 'background.default' }}
                                 >

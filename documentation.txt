@@ -1,0 +1,115 @@
+Personal Portfolio Project Documentation
+
+1. Project Overview
+This project is a personal portfolio website built with Next.js (App Router), React, TypeScript, and Material UI.
+It presents profile information, technical skills, and contact links in a modern responsive layout.
+
+2. Main Goals
+- Showcase personal profile and developer identity.
+- Display categorized tech stack with icons.
+- Provide easy navigation to About, Experience, and Contact pages.
+- Support light and dark theme switching.
+
+3. Technology Stack
+Core Framework:
+- Next.js 16
+- React 19
+- TypeScript
+
+UI and Styling:
+- Material UI (@mui/material)
+- Material UI Icons (@mui/icons-material)
+- Emotion (@emotion/react, @emotion/styled)
+- next/font (Fraunces and Space Grotesk)
+
+Tooling:
+- ESLint
+- Tailwind packages are present in dependencies, but the current UI implementation is based on Material UI.
+
+4. Project Structure
+Workspace Root:
+- README.md
+- documentation.txt
+- personal-portfolio/
+
+Application Root (personal-portfolio/):
+- app/
+  - layout.tsx: Global layout, metadata, theme provider setup, navbar injection
+  - page.tsx: Homepage (profile, categorized tech stack, about section, contact CTA, social links)
+  - navBar.tsx: Top navigation and theme toggle
+  - themeProvider.tsx: Theme mode context/provider logic
+  - globals.css: Base global styles and font assignments
+  - contact/page.tsx: Contact page
+  - experience/page.tsx: Experience page
+  - not-found.tsx: Custom 404 page
+- public/
+  - Profile image and technology logo assets (SVG/PNG/WebP)
+- package.json
+- tsconfig.json
+- eslint.config.mjs
+- next.config.ts
+
+5. Key Features
+Homepage:
+- Hero/profile section with circular profile image.
+- Categorized tech stack cards:
+  - Languages
+  - Frontend
+  - Backend / DB
+  - Machine Learning
+- Inside each category, each tech item is shown as its own mini card with icon + label.
+- About Me section below tech stack.
+- Contact call-to-action button.
+- Social icons (Facebook, GitHub, Email).
+
+Navigation:
+- Sticky glassmorphism-style navbar.
+- Active route highlighting.
+- Links to About Me (/), Experiences (/experience), and Contact Me (/contact).
+
+Theme:
+- Light/Dark mode toggle in navbar.
+- Theme-aware backgrounds and surfaces.
+- Default theme: Dark mode
+
+Dark Mode:
+- Primary color: #0f766e
+- Secondary color: #60a5fa
+- Background color: #09111f
+- Text color(primary): #e8eefc, (secondary): #a4b3cc
+
+Light Mode:
+- Primary color: #0f766e
+- Secondary color: #1d4ed8
+- Background color: #f2f7fb
+- Text color(primary): #11223f, (secondary): #4f647f
+
+Typography:
+- Font family: "Manrope", "sans serif", "DM Serif Display"
+- Font weight: 600
+
+SEO Metadata:
+- Title, description, keywords, author, and Open Graph metadata are configured in app/layout.tsx.
+
+6. Scripts
+Run these commands inside personal-portfolio/:
+- npm install      -> install dependencies
+- npm run dev      -> start development server
+- npm run build    -> create production build
+- npm run start    -> start production server
+
+7. Development Notes
+- Static assets are imported directly from public/ into components.
+- UI is component-driven using MUI Paper, Stack, Typography, Button, and IconButton.
+- The homepage is a client component ("use client").
+
+8. Future Improvement Ideas
+- Add project showcase cards with links and live demos.
+- Add downloadable resume section.
+- Add animations for section reveal and interactions.
+- Add form handling with validation for the contact page.
+- Add tests (unit/component/e2e) and CI workflow.
+
+9. Author
+- Shin Thant Naung
+(2025-miit-cse-005)
