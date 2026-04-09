@@ -156,13 +156,13 @@ export default function Page() {
                 I’m also deeply interested in mathematics, machine learning, and deep learning. My goal is to become a full-stack developer and an AI engineer, and to contribute to meaningful, real-world projects in the future.
               </Typography>
             </Paper>
-            <Box>
-              <Button LinkComponent={Link} href="/contact" variant="contained" size="large" sx={{ px: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Button LinkComponent={Link} href="/contact" variant="contained" size="large" sx={{ px: 4, transform: 'scale(1.05)', transition: 'transform 0.2s ease', '&:hover': { transform: 'scale(1.1)'} }}>
                 Contact Me
               </Button>
             </Box>
 
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={1} sx={{ justifyContent: 'center' }}>
               <IconButton
                 component="a"
                 href="https://www.facebook.com/shin.thant.517084"
